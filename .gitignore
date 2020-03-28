@@ -1,0 +1,15 @@
+﻿# JetBrains Rider...
+.idea
+
+# Terrafrom...
+.terraform
+*.tfstate*
+*.tfstate.backup
+*.tfvars
+terraform-provider*
+
+# Rancher...
+kube_config.yaml
+*.pem
+*.pub
+node_public_dns.txt
