@@ -10,7 +10,7 @@
                                                                         
 # Install Rancher via Helm
                                         
-export KUBECONFIG=$(pwd)/Concourse/kube_config.yaml
+export KUBECONFIG=$(pwd)/concourse/kube_config.yaml
 chmod 400 $(pwd)/concourse/node.pem
 
 # Cert-Manager...

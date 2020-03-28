@@ -10,7 +10,7 @@
 
 # https://www.terraform.io/docs/providers/aws/d/s3_bucket-object.html
 
-data "aws_s3_bucket_object" "rancher-cluster-yaml" {
+data "aws_s3_bucket_object" "concourse-cluster-yaml" {
   
   bucket = var.bucket_name
   key = "/${var.name}/kube_config.yaml"
@@ -19,7 +19,7 @@ data "aws_s3_bucket_object" "rancher-cluster-yaml" {
 
 resource "local_file" "kube-config-yaml" {
   
-  content = data.aws_s3_bucket_object.rancher-cluster-yaml.body
+  content = data.aws_s3_bucket_object.concourse-cluster-yaml.body
   filename = "${path.cwd}/${var.name}/kube_config.yaml"
   
 }
@@ -55,7 +55,7 @@ resource "local_file" "node-private-key" {
 resource "null_resource" "install-concourse" {
 
   depends_on = [
-    data.aws_s3_bucket_object.rancher-cluster-yaml
+    data.aws_s3_bucket_object.concourse-cluster-yaml
   ]
 
   connection {
