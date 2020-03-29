@@ -19,6 +19,10 @@ variable "name" {
   default = "concourse"
 }
 
+variable "cluster_name" {
+  default = "cluster"
+}
+
 variable "domain" {
   default = "morsley.io"
 }
