@@ -69,6 +69,7 @@ resource "null_resource" "install-concourse" {
     command = "chmod +x scripts/install_concourse.sh && bash scripts/install_concourse.sh"
     environment = {
       FOLDER = "${var.name}"
+      NAME = "${var.name}"
       NAMESPACE = "${var.name}"
     }
   }

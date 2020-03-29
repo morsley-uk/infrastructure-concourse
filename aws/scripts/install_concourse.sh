@@ -8,7 +8,7 @@
 #   |_____|_| |_|___/\__\__,_|_|_|  \_____\___/|_| |_|\___\___/ \__,_|_|  |___/\___|
 #                                                                                 
                                                                         
-# Install Rancher via Helm
+# Install Pivotal Concourse via Helm
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 chmod 400 $(pwd)/$FOLDER/node.pem
@@ -38,7 +38,7 @@ helm repo update
 
 kubectl create namespace $NAMESPACE
 
-helm install concourse/concourse
+helm install --name $NAME concourse/concourse 
 
 #helm install rancher rancher-stable/rancher \
 #  --namespace cattle-system \
