@@ -9,6 +9,8 @@
 #                                                                                 
                                                                         
 # Install Pivotal Concourse via Helm
+    
+set -x    
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 chmod 400 $(pwd)/$FOLDER/node.pem
@@ -62,3 +64,7 @@ kubectl --namespace $NAMESPACE rollout status concourse/concourse
 # https://www.ssllabs.com/ssltest/
 
 # https://rancher.com/docs/rancher/v2.x/en/installation/options/troubleshooting/
+
+set +x
+
+exit 0
