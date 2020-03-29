@@ -17,10 +17,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "morsley-io-terraform"
+    bucket         = "morsley-io-terraform-backend-state"
     key            = "infrastructure-concourse"
     region         = "eu-west-2"
-    dynamodb_table = "morsley-io-tfstatelock-concourse"
+    dynamodb_table = "morsley-io-terraform-state-lock-concourse"
     encrypt        = true
   }
 

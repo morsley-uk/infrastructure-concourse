@@ -10,8 +10,8 @@
                                                                         
 # Install Rancher via Helm
                                         
-export KUBECONFIG=$(pwd)/concourse/kube_config.yaml
-chmod 400 $(pwd)/concourse/node.pem
+export KUBECONFIG=$(pwd)/$(FOLDER)/kube_config.yaml
+chmod 400 $(pwd)/$(FOLDER)/node.pem
 
 # Cert-Manager...
 
@@ -36,7 +36,7 @@ helm repo add concourse https://concourse-charts.storage.googleapis.com/
 
 helm repo update
 
-kubectl create namespace concourse
+kubectl create namespace $(NAMESPACE)
 
 helm install concourse/concourse \
   --name=concourse

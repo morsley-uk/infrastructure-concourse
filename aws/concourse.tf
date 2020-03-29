@@ -6,13 +6,11 @@
 #    \_____\___/|_| |_|\___\___/ \__,_|_|  |___/\___|
 #                                                   
 
-# 1. Read our cluster YAML from S3
-
 # https://www.terraform.io/docs/providers/aws/d/s3_bucket-object.html
 
 data "aws_s3_bucket_object" "concourse-cluster-yaml" {
   
-  bucket = var.bucket_name
+  bucket = local.bucket_name
   key = "/${var.name}/kube_config.yaml"
   
 }
@@ -26,7 +24,7 @@ resource "local_file" "kube-config-yaml" {
 
 data "aws_s3_bucket_object" "node-public-dns" {
 
-  bucket = var.bucket_name
+  bucket = local.bucket_name
   key = "/${var.name}/node_public_dns.txt"
 
 }
@@ -40,7 +38,7 @@ resource "local_file" "node-public-dns" {
 
 data "aws_s3_bucket_object" "node-private-key" {
 
-  bucket = var.bucket_name
+  bucket = local.bucket_name
   key = "/${var.name}/node.pem"
 
 }
@@ -69,6 +67,10 @@ resource "null_resource" "install-concourse" {
 
   provisioner "local-exec" {
     command = "chmod +x scripts/install_concourse.sh && bash scripts/install_concourse.sh"
+    environment = {
+      FOLDER = "${var.name}"
+      NAMESPACE = "${var.name}"
+    }
   }
 
 }

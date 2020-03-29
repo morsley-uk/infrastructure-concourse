@@ -19,6 +19,6 @@ variable "name" {
   default = "concourse"
 }
 
-variable "bucket_name" {
-  default = "morsley-io"
+variable "domain" {
+  default = "morsley.io"
 }
