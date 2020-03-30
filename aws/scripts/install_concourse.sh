@@ -40,7 +40,9 @@ helm repo update
 
 kubectl create namespace $NAMESPACE
 
-helm install --name $NAME concourse/concourse 
+helm install $NAME concourse/concourse \
+  --namespace $NAMESPACE \
+  --wait
 
 #helm install rancher rancher-stable/rancher \
 #  --namespace cattle-system \
@@ -58,7 +60,7 @@ helm install --name $NAME concourse/concourse
 #  --set letsEncrypt.environment=staging \
 #  --wait
 
-kubectl --namespace $NAMESPACE rollout status concourse/concourse
+//kubectl --namespace $NAMESPACE rollout status stable/concourse
 
 # https://whynopadlock.com
 # https://www.ssllabs.com/ssltest/
