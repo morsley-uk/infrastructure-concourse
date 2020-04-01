@@ -50,16 +50,16 @@
 //
 //}
 
-//resource "aws_ebs_volume" "concourse-ebs" {
-//  
-//  availability_zone = var.storage_availability_zone
-//  size = var.storage_size
-//
-//  tags = {
-//    Name = "concourse-storage"
-//  }
-//  
-//}
+resource "aws_ebs_volume" "concourse-ebs" {
+
+  availability_zone = var.storage_availability_zone
+  size = var.storage_size
+
+  tags = {
+    Name = "concourse-storage"
+  }
+
+}
 
 resource "local_file" "concourse-workers-persistent-volume-yaml" {
 
