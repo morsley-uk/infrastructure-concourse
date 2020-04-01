@@ -4,8 +4,8 @@ metadata:
   name: concourse-workers
   labels:
     type: amazonEBS
-    app=concourse-worker
-    release=concourse
+    app: concourse-worker
+    release: concourse
   spec:
     capacity:
       storage: 20Gi

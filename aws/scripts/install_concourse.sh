@@ -25,17 +25,17 @@ ls -la
 
 kubectl apply --filename concourse-workers-pv.yaml
 
-helm repo add concourse https://concourse-charts.storage.googleapis.com/
+#helm repo add concourse https://concourse-charts.storage.googleapis.com/
 
-helm repo update
+#helm repo update
 
-kubectl create namespace $NAMESPACE
+#kubectl create namespace $NAMESPACE
 
-helm install $NAME concourse/concourse \
-  --namespace $NAMESPACE \
-  --wait
+#helm install $NAME concourse/concourse \
+#  --namespace $NAMESPACE \
+#  --wait
 
-kubectl --namespace $NAMESPACE rollout status concourse/concourse
+#kubectl --namespace $NAMESPACE rollout status concourse/concourse
 
 # https://whynopadlock.com
 # https://www.ssllabs.com/ssltest/
