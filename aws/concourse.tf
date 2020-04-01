@@ -61,10 +61,10 @@ resource "aws_ebs_volume" "concourse-ebs" {
 
 }
 
-resource "local_file" "concourse-workers-persistent-volume-yaml" {
+resource "local_file" "concourse-persistent-volume-yaml" {
 
-  content = templatefile("${path.cwd}/concourse-workers-pv.yaml", { VOLUME_ID = aws_ebs_volume.concourse-ebs.id })
-  filename = "${path.cwd}/${var.name}/concourse-workers-pv.yaml"
+  content = templatefile("${path.cwd}/concourse-pv.yaml", { VOLUME_ID = aws_ebs_volume.concourse-ebs.id })
+  filename = "${path.cwd}/${var.name}/concourse-pv.yaml"
   
 }
 
