@@ -6,11 +6,11 @@ metadata:
     type: amazonEBS
     app: concourse-worker
     release: concourse
-  spec:
-    capacity:
-      storage: 20Gi
-    accessMode:
-      - ReadWriteOnce
-    awsElasticBlockStore:
-      volumeID: ${VOLUME_ID}
-      fsType: gp2
+spec:
+  capacity:
+    storage: 20Gi
+  accessMode:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: ${VOLUME_ID}
+    fsType: gp2
