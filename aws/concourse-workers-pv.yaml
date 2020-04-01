@@ -8,7 +8,7 @@ metadata:
     release: concourse
 spec:
   capacity:
-    storage: 20Gi
+    storage: 50Gi
   accessModes:
     - ReadWriteOnce
   awsElasticBlockStore:
