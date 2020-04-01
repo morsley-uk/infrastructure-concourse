@@ -12,55 +12,30 @@
     
 set -x    
                                         
-export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
-chmod 400 $(pwd)/$FOLDER/node.pem
+#export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
+#chmod 400 $(pwd)/$FOLDER/node.pem
 
-# Cert-Manager...
+ls -la
 
-#kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
-#
-#kubectl create namespace cert-manager
-#
-#helm repo add jetstack https://charts.jetstack.io
-#
-#helm repo update
-#
-#helm install cert-manager jetstack/cert-manager \
-#  --version v0.12.0 \
-#  --namespace cert-manager \
-#  --wait
-#
-#kubectl get pods --namespace cert-manager
-  
+cd $(pwd)/$FOLDER/
+
+ls -la
+ 
 # Concourse...
 
-helm repo add concourse https://concourse-charts.storage.googleapis.com/
+#kubectl apply --filename  
 
-helm repo update
+#helm repo add concourse https://concourse-charts.storage.googleapis.com/
 
-kubectl create namespace $NAMESPACE
+#helm repo update
 
-helm install $NAME concourse/concourse \
-  --namespace $NAMESPACE \
-  --wait
+#kubectl create namespace $NAMESPACE
 
-#helm install rancher rancher-stable/rancher \
-#  --namespace cattle-system \
-#  --version v2.3.5 \
-#  --set hostname=rancher.morsley.io \
-#  --set ingress.tls.source=letsEncrypt \
-#  --set letsEncrypt.email=letsencrypt@morsley.uk \
+#helm install $NAME concourse/concourse \
+#  --namespace $NAMESPACE \
 #  --wait
 
-#helm install rancher rancher-latest/rancher \
-#  --namespace cattle-system \
-#  --set hostname=rancher.morsley.io \
-#  --set ingress.tls.source=letsEncrypt \
-#  --set letsEncrypt.email=letsencrypt@morsley.uk \
-#  --set letsEncrypt.environment=staging \
-#  --wait
-
-//kubectl --namespace $NAMESPACE rollout status stable/concourse
+#kubectl --namespace $NAMESPACE rollout status concourse/concourse
 
 # https://whynopadlock.com
 # https://www.ssllabs.com/ssltest/
