@@ -15,6 +15,14 @@ variable "region" {
   default = "eu-west-2" # London
 }
 
+variable "storage_availability_zone" {
+  default = "eu-west-2a" # London
+}
+
+variable "storage_size" {
+  default = 28 # In GiBs
+}
+
 variable "name" {
   default = "concourse"
 }

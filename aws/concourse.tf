@@ -50,9 +50,21 @@ resource "local_file" "node-private-key" {
 
 }
 
+resource "aws_ebs_volume" "concourse-ebs" {
+  
+  availability_zone = var.storage_availability_zone
+  size = var.storage_size
+
+  tags = {
+    Name = "concourse-storage"
+  }
+  
+}
+
 resource "null_resource" "install-concourse" {
 
   depends_on = [
+    aws_ebs_volume.concourse-ebs,
     data.aws_s3_bucket_object.concourse-cluster-yaml
   ]
 
