@@ -13,13 +13,15 @@
 set -x    
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
+kubectl get nodes
 chmod 400 $(pwd)/$FOLDER/*
 cd $(pwd)/$FOLDER/
+ls -la
   
 # Concourse...
 
-kubectl apply --filename concourse-pv.yaml
-kubectl apply --filename postgresql-pv.yaml
+#kubectl apply --filename concourse-pv.yaml
+#kubectl apply --filename postgresql-pv.yaml
 
 #helm repo add concourse https://concourse-charts.storage.googleapis.com/
 
