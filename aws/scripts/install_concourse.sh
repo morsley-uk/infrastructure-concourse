@@ -29,11 +29,9 @@ helm repo update
 
 kubectl create namespace $NAMESPACE
 
-helm install $NAME concourse/concourse \
-  --namespace $NAMESPACE \
-  --wait
+helm install $NAME concourse/concourse --namespace $NAMESPACE
 
-kubectl --namespace $NAMESPACE rollout status $NAME
+#kubectl --namespace $NAMESPACE rollout status $NAME
 
 # https://whynopadlock.com
 # https://www.ssllabs.com/ssltest/
