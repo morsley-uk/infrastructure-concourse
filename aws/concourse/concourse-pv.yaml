@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: concourse-workers
+  labels:
+    type: amazonEBS
+    app: concourse-worker
+    release: concourse
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: vol-08317a95ca0678d9c
+    fsType: gp2
