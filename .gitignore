@@ -13,3 +13,5 @@ kube_config.yaml
 *.pem
 *.pub
 node_public_dns.txt
+
+*/concourse/*
