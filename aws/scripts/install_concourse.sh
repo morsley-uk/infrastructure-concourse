@@ -30,7 +30,7 @@ helm repo update
 kubectl create namespace $NAMESPACE
 
 helm install $NAME concourse/concourse \
-  --namespace $NAMESPACE \ 
+  --namespace $NAMESPACE \
   --wait
 
 kubectl --namespace $NAMESPACE rollout status $NAME
