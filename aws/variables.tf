@@ -19,8 +19,12 @@ variable "storage_availability_zone" {
   default = "eu-west-2a" # London
 }
 
-variable "storage_size" {
-  default = 28 # In GiBs
+variable "concourse_storage_size" {
+  default = 40 # In GiBs
+}
+
+variable "postgresql_storage_size" {
+  default = 10 # In GiBs
 }
 
 variable "name" {

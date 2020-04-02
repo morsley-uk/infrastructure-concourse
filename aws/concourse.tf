@@ -53,7 +53,7 @@ resource "local_file" "node-private-key" {
 resource "aws_ebs_volume" "concourse-ebs" {
 
   availability_zone = var.storage_availability_zone
-  size = var.storage_size
+  size = var.concourse_storage_size
 
   tags = {
     Name = "concourse-storage"
@@ -63,9 +63,27 @@ resource "aws_ebs_volume" "concourse-ebs" {
 
 resource "local_file" "concourse-persistent-volume-yaml" {
 
-  content = templatefile("${path.cwd}/concourse-pv.yaml", { VOLUME_ID = aws_ebs_volume.concourse-ebs.id })
+  content = templatefile("${path.cwd}/k8s/concourse-pv.yaml", { VOLUME_ID = aws_ebs_volume.concourse-ebs.id })
   filename = "${path.cwd}/${var.name}/concourse-pv.yaml"
   
+}
+
+resource "aws_ebs_volume" "postgresql-ebs" {
+
+  availability_zone = var.storage_availability_zone
+  size = var.postgresql_storage_size
+
+  tags = {
+    Name = "postgresql-storage"
+  }
+
+}
+
+resource "local_file" "postgresql-persistent-volume-yaml" {
+
+  content = templatefile("${path.cwd}/k8s/postgresql-pv.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
+  filename = "${path.cwd}/${var.name}/postgresql-pv.yaml"
+
 }
 
 resource "null_resource" "install-concourse" {
