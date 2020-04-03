@@ -15,4 +15,5 @@ spec:
   storageClassName: postgresql-storage-class
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
-    fsType: gp2
+#    fsType: gp2
+    fsType: ext4

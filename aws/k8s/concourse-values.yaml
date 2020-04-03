@@ -1369,7 +1369,7 @@ concourse:
       ## Driver to use for managing volumes.
       ## Possible values: detect, naive, btrfs, and overlay.
       ##
-      driver: btrfs
+      driver: detect
 
       ## Path to btrfs binary
       ##
