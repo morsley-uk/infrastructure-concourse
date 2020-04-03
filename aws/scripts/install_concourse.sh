@@ -9,11 +9,15 @@
 #                                                                                 
                                                                         
 # Install Pivotal Concourse via Helm
-    
-set -x    
+ 
+echo '###############################################################################'
+echo '# INSTALL CONCOURSE...'
+echo '###############################################################################'
+      
+#set -x    
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
-kubectl get nodes
+
 chmod 400 $(pwd)/$FOLDER/*
   
 # Concourse...
@@ -39,6 +43,10 @@ helm install $NAME concourse/concourse --values $(pwd)/k8s/concourse-values.yaml
 
 # https://rancher.com/docs/rancher/v2.x/en/installation/options/troubleshooting/
 
-set +x
+#set +x
+
+echo '###############################################################################'
+echo '# INSTALL CONCOURSE'
+echo '###############################################################################'
 
 exit 0
