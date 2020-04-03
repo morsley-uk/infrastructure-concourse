@@ -11,6 +11,7 @@ spec:
     storage: 50Gi
   accessModes:
     - ReadWriteOnce
+  storageClassName: gp2
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
     fsType: gp2

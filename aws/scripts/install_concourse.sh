@@ -15,13 +15,13 @@ set -x
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 kubectl get nodes
 chmod 400 $(pwd)/$FOLDER/*
-cd $(pwd)/$FOLDER/
-ls -la
   
 # Concourse...
 
-kubectl apply --filename concourse-pv.yaml
-kubectl apply --filename postgresql-pv.yaml
+kubectl apply --filename $(pwd)/k8s/concourse-sc.yaml
+
+kubectl apply --filename $(pwd)/$FOLDER/concourse-pv.yaml
+kubectl apply --filename $(pwd)/$FOLDER/postgresql-pv.yaml
 
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
 
@@ -29,7 +29,7 @@ helm repo update
 
 kubectl create namespace $NAMESPACE
 
-helm install $NAME concourse/concourse --namespace $NAMESPACE
+helm install $NAME concourse/concourse --filename $(pwd)/k8s/concourse-values.yaml --namespace $NAMESPACE
 
 #kubectl --namespace $NAMESPACE rollout status $NAME
 
