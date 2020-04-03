@@ -18,15 +18,15 @@ echo '##########################################################################
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 
-chmod 400 $(pwd)/$FOLDER/*
+chmod 400 $(pwd)/$FOLDER/*.pem
   
 # Concourse...
 
-kubectl apply --filename $(pwd)/k8s/workers-sc.yaml
-kubectl apply --filename $(pwd)/$FOLDER/workers-pv.yaml
+kubectl apply --filename $(pwd)/k8s/worker-storage-class.yaml
+kubectl apply --filename $(pwd)/$FOLDER/worker-persistent-volume.yaml
 
-kubectl apply --filename $(pwd)/k8s/postgresql-sc.yaml
-kubectl apply --filename $(pwd)/$FOLDER/postgresql-pv.yaml
+kubectl apply --filename $(pwd)/k8s/postgresql-storage-classsc.yaml
+kubectl apply --filename $(pwd)/$FOLDER/postgresql-persistent-volume.yaml
 
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
 

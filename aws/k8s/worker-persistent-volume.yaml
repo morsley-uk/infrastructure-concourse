@@ -11,7 +11,7 @@ spec:
     storage: 40Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: workers-sc
+  storageClassName: worker-storage-class
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
     fsType: gp2

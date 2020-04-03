@@ -1881,7 +1881,7 @@ persistence:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: worker-sc
+    storageClass: worker-storage-class
 
     ## Persistent Volume Access Mode.
     ##
@@ -1937,7 +1937,7 @@ postgresql:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: postgresql-sc
+    storageClass: postgresql-storage-class
 
     ## Persistent Volume Access Mode.
     ##
