@@ -8,10 +8,10 @@ metadata:
     release: concourse
 spec:
   capacity:
-    storage: 50Gi
+    storage: 40Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp2
+  storageClassName: workers-sc
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
     fsType: gp2

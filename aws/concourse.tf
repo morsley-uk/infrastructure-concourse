@@ -8,16 +8,16 @@
 
 # https://www.terraform.io/docs/providers/aws/d/s3_bucket-object.html
 
-data "aws_s3_bucket_object" "concourse-cluster-yaml" {
+data "aws_s3_bucket_object" "kube-config-yaml" {
 
   bucket = local.bucket_name
-  key = "/${var.cluster_name}/kube_config.yaml"
+  key    = "/${var.cluster_name}/kube_config.yaml"
 
 }
 
 resource "local_file" "kube-config-yaml" {
 
-  content = data.aws_s3_bucket_object.concourse-cluster-yaml.body
+  content  = data.aws_s3_bucket_object.kube-config-yaml.body
   filename = "${path.cwd}/${var.name}/kube_config.yaml"
 
 }
@@ -25,13 +25,13 @@ resource "local_file" "kube-config-yaml" {
 data "aws_s3_bucket_object" "node-public-dns" {
 
   bucket = local.bucket_name
-  key = "/${var.cluster_name}/node_public_dns.txt"
+  key    = "/${var.cluster_name}/node_public_dns.txt"
 
 }
 
 resource "local_file" "node-public-dns" {
 
-  content = data.aws_s3_bucket_object.node-public-dns.body
+  content  = data.aws_s3_bucket_object.node-public-dns.body
   filename = "${path.cwd}/${var.name}/node_public_dns.txt"
 
 }
@@ -39,39 +39,39 @@ resource "local_file" "node-public-dns" {
 data "aws_s3_bucket_object" "node-private-key" {
 
   bucket = local.bucket_name
-  key = "/${var.cluster_name}/node.pem"
+  key    = "/${var.cluster_name}/node.pem"
 
 }
 
 resource "local_file" "node-private-key" {
 
-  content = data.aws_s3_bucket_object.node-private-key.body
+  content  = data.aws_s3_bucket_object.node-private-key.body
   filename = "${path.cwd}/${var.name}/node.pem"
 
 }
 
-resource "aws_ebs_volume" "concourse-ebs" {
+resource "aws_ebs_volume" "workers-ebs" {
 
   availability_zone = var.storage_availability_zone
-  size = var.concourse_storage_size
+  size              = var.workers_storage_size
 
   tags = {
-    Name = "concourse-storage"
+    Name = "workers-storage"
   }
 
 }
 
-resource "local_file" "concourse-persistent-volume-yaml" {
+resource "local_file" "workers-persistent-volume-yaml" {
 
-  content = templatefile("${path.cwd}/k8s/concourse-pv.yaml", { VOLUME_ID = aws_ebs_volume.concourse-ebs.id })
-  filename = "${path.cwd}/${var.name}/concourse-pv.yaml"
+  content  = templatefile("${path.cwd}/k8s/workers-pv.yaml", { VOLUME_ID = aws_ebs_volume.workers-ebs.id })
+  filename = "${path.cwd}/${var.name}/workers-pv.yaml"
 
 }
 
 resource "aws_ebs_volume" "postgresql-ebs" {
 
   availability_zone = var.storage_availability_zone
-  size = var.postgresql_storage_size
+  size              = var.postgresql_storage_size
 
   tags = {
     Name = "postgresql-storage"
@@ -81,7 +81,7 @@ resource "aws_ebs_volume" "postgresql-ebs" {
 
 resource "local_file" "postgresql-persistent-volume-yaml" {
 
-  content = templatefile("${path.cwd}/k8s/postgresql-pv.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
+  content  = templatefile("${path.cwd}/k8s/postgresql-pv.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
   filename = "${path.cwd}/${var.name}/postgresql-pv.yaml"
 
 }
@@ -89,9 +89,9 @@ resource "local_file" "postgresql-persistent-volume-yaml" {
 resource "null_resource" "install-concourse" {
 
   depends_on = [
-    aws_ebs_volume.concourse-ebs,
+    aws_ebs_volume.workers-ebs,
     aws_ebs_volume.postgresql-ebs,
-    data.aws_s3_bucket_object.concourse-cluster-yaml
+    data.aws_s3_bucket_object.kube-config-yaml
   ]
 
   connection {
@@ -106,8 +106,8 @@ resource "null_resource" "install-concourse" {
   provisioner "local-exec" {
     command = "chmod +x scripts/install_concourse.sh && bash scripts/install_concourse.sh"
     environment = {
-      FOLDER = "${var.name}"
-      NAME = "${var.name}"
+      FOLDER    = "${var.name}"
+      NAME      = "${var.name}"
       NAMESPACE = "${var.name}"
     }
   }

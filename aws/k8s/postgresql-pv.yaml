@@ -12,6 +12,7 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
+  storageClassName: postgresql-sc
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
     fsType: gp2
