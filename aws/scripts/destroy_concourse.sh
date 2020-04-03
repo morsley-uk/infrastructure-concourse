@@ -1,19 +1,17 @@
 ﻿#!/usr/bin/env bash
-
-
-                                                                        
+                                
 # Destroy Pivotal Concourse via Helm
- 
+
 echo '###############################################################################'
 echo '# DESTROY CONCOURSE...'
 echo '###############################################################################'
-      
+
 #set -x    
                                         
 export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 
 chmod 400 $(pwd)/$FOLDER/*.pem
-  
+
 # Concourse...
 
 #kubectl apply --filename $(pwd)/k8s/worker-storage-class.yaml
