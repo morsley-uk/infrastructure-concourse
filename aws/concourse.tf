@@ -63,8 +63,8 @@ resource "aws_ebs_volume" "workers-ebs" {
 
 resource "local_file" "workers-persistent-volume-yaml" {
 
-  content  = templatefile("${path.cwd}/k8s/workers-pv.yaml", { VOLUME_ID = aws_ebs_volume.workers-ebs.id })
-  filename = "${path.cwd}/${var.name}/workers-pv.yaml"
+  content  = templatefile("${path.cwd}/k8s/workers-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.workers-ebs.id })
+  filename = "${path.cwd}/${var.name}/workers-persistent-volume.yaml"
 
 }
 
@@ -81,8 +81,8 @@ resource "aws_ebs_volume" "postgresql-ebs" {
 
 resource "local_file" "postgresql-persistent-volume-yaml" {
 
-  content  = templatefile("${path.cwd}/k8s/postgresql-pv.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
-  filename = "${path.cwd}/${var.name}/postgresql-pv.yaml"
+  content  = templatefile("${path.cwd}/k8s/postgresql-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
+  filename = "${path.cwd}/${var.name}/postgresql-persistent-volume.yaml"
 
 }
 
