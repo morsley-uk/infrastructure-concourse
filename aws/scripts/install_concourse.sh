@@ -21,7 +21,7 @@ chmod 400 $(pwd)/$FOLDER/*
 kubectl apply --filename $(pwd)/k8s/workers-sc.yaml
 kubectl apply --filename $(pwd)/$FOLDER/workers-pv.yaml
 
-kubectl apply --filename $(pwd)/k8s/postresql-sc.yaml
+kubectl apply --filename $(pwd)/k8s/postgresql-sc.yaml
 kubectl apply --filename $(pwd)/$FOLDER/postgresql-pv.yaml
 
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
