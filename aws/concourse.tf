@@ -94,17 +94,47 @@ resource "null_resource" "install-concourse" {
     data.aws_s3_bucket_object.kube-config-yaml
   ]
 
-  connection {
-    type        = "ssh"
-    host        = data.aws_s3_bucket_object.node-public-dns.body
-    user        = "ubuntu"
-    private_key = data.aws_s3_bucket_object.node-private-key.body
-  }
+//  connection {
+//    type        = "ssh"
+//    host        = data.aws_s3_bucket_object.node-public-dns.body
+//    user        = "ubuntu"
+//    private_key = data.aws_s3_bucket_object.node-private-key.body
+//  }
 
   # https://www.terraform.io/docs/provisioners/local-exec.html
 
   provisioner "local-exec" {
     command = "chmod +x scripts/install_concourse.sh && bash scripts/install_concourse.sh"
+    environment = {
+      FOLDER    = "${var.name}"
+      NAME      = "${var.name}"
+      NAMESPACE = "${var.name}"
+    }
+  }
+
+}
+
+resource "null_resource" "destroy-concourse" {
+
+  depends_on = [
+    aws_ebs_volume.worker-ebs,
+    aws_ebs_volume.postgresql-ebs,
+    data.aws_s3_bucket_object.kube-config-yaml,
+    null_resource.install-concourse
+  ]
+
+//  connection {
+//    type        = "ssh"
+//    host        = data.aws_s3_bucket_object.node-public-dns.body
+//    user        = "ubuntu"
+//    private_key = data.aws_s3_bucket_object.node-private-key.body
+//  }
+
+  # https://www.terraform.io/docs/provisioners/local-exec.html
+
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "chmod +x scripts/destroy_concourse.sh && bash scripts/destroy_concourse.sh"
     environment = {
       FOLDER    = "${var.name}"
       NAME      = "${var.name}"
