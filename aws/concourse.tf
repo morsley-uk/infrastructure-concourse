@@ -56,15 +56,22 @@ resource "aws_ebs_volume" "worker-ebs" {
   size              = var.worker_storage_size
 
   tags = {
-    Name = "worker-storage"
+    Name = "worker-storage-ebs"
   }
 
 }
 
 resource "local_file" "worker-persistent-volume-yaml" {
 
-  content  = templatefile("${path.cwd}/k8s/worker-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
-  filename = "${path.cwd}/${var.name}/worker-persistent-volume.yaml"
+  content  = templatefile("${path.cwd}/k8s/worker-persistent-volume-0.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
+  filename = "${path.cwd}/${var.name}/worker-persistent-volume-0.yaml"
+
+}
+
+resource "local_file" "worker-persistent-volume-yaml" {
+
+  content  = templatefile("${path.cwd}/k8s/worker-persistent-volume-1.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
+  filename = "${path.cwd}/${var.name}/worker-persistent-volume-1.yaml"
 
 }
 
@@ -74,15 +81,15 @@ resource "aws_ebs_volume" "postgresql-ebs" {
   size              = var.postgresql_storage_size
 
   tags = {
-    Name = "postgresql-storage"
+    Name = "postgresql-storage-ebs"
   }
 
 }
 
-resource "local_file" "postgresql-persistent-volume-yaml" {
+resource "local_file" "postgresql-persistent-volume-0-yaml" {
 
-  content  = templatefile("${path.cwd}/k8s/postgresql-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
-  filename = "${path.cwd}/${var.name}/postgresql-persistent-volume.yaml"
+  content  = templatefile("${path.cwd}/k8s/postgresql-persistent-volume-0.yaml", { VOLUME_ID = aws_ebs_volume.postgresql-ebs.id })
+  filename = "${path.cwd}/${var.name}/postgresql-persistent-volume-0.yaml"
 
 }
 
@@ -132,7 +139,7 @@ resource "null_resource" "destroy-concourse" {
   # https://www.terraform.io/docs/provisioners/local-exec.html
 
   provisioner "local-exec" {
-    when    = "destroy"
+    when    = destroy
     command = "chmod +x scripts/destroy_concourse.sh && bash scripts/destroy_concourse.sh"
   }
 

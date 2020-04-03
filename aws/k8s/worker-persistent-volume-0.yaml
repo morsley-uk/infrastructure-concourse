@@ -1,18 +1,17 @@
 ﻿apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: concourse-postgresql
+  name: concourse-worker-0
   labels:
     type: amazonEBS
-    app: postgresql
+    app: concourse-worker
     release: concourse
-    role: master
 spec:
   capacity:
-    storage: 10Gi
+    storage: 20Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: postgresql-storage-class
+  storageClassName: worker-storage-class
   awsElasticBlockStore:
     volumeID: ${VOLUME_ID}
     fsType: gp2

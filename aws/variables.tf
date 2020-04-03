@@ -20,7 +20,7 @@ variable "storage_availability_zone" {
 }
 
 variable "worker_storage_size" {
-  default = 40 # In GiBs
+  default = 20 # In GiBs
 }
 
 variable "postgresql_storage_size" {
