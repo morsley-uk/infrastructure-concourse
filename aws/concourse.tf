@@ -119,8 +119,7 @@ resource "null_resource" "destroy-concourse" {
   depends_on = [
     aws_ebs_volume.worker-ebs,
     aws_ebs_volume.postgresql-ebs,
-    data.aws_s3_bucket_object.kube-config-yaml,
-    null_resource.install-concourse
+    local_file.kube-config-yaml
   ]
 
 //  connection {
