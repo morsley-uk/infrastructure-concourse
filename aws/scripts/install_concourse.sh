@@ -29,7 +29,7 @@ helm repo update
 
 kubectl create namespace $NAMESPACE
 
-helm install $NAME concourse/concourse --filename $(pwd)/k8s/concourse-values.yaml --namespace $NAMESPACE
+helm install $NAME concourse/concourse --values $(pwd)/k8s/concourse-values.yaml --namespace $NAMESPACE
 
 #kubectl --namespace $NAMESPACE rollout status $NAME
 
