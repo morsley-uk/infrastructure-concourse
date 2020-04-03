@@ -61,14 +61,14 @@ resource "aws_ebs_volume" "worker-ebs" {
 
 }
 
-resource "local_file" "worker-persistent-volume-yaml" {
+resource "local_file" "worker-persistent-volume-0-yaml" {
 
   content  = templatefile("${path.cwd}/k8s/worker-persistent-volume-0.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
   filename = "${path.cwd}/${var.name}/worker-persistent-volume-0.yaml"
 
 }
 
-resource "local_file" "worker-persistent-volume-yaml" {
+resource "local_file" "worker-persistent-volume-1-yaml" {
 
   content  = templatefile("${path.cwd}/k8s/worker-persistent-volume-1.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
   filename = "${path.cwd}/${var.name}/worker-persistent-volume-1.yaml"
