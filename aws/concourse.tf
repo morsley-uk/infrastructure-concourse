@@ -50,21 +50,21 @@ resource "local_file" "node-private-key" {
 
 }
 
-resource "aws_ebs_volume" "workers-ebs" {
+resource "aws_ebs_volume" "worker-ebs" {
 
   availability_zone = var.storage_availability_zone
-  size              = var.workers_storage_size
+  size              = var.worker_storage_size
 
   tags = {
-    Name = "workers-storage"
+    Name = "worker-storage"
   }
 
 }
 
-resource "local_file" "workers-persistent-volume-yaml" {
+resource "local_file" "worker-persistent-volume-yaml" {
 
-  content  = templatefile("${path.cwd}/k8s/workers-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.workers-ebs.id })
-  filename = "${path.cwd}/${var.name}/workers-persistent-volume.yaml"
+  content  = templatefile("${path.cwd}/k8s/worker-persistent-volume.yaml", { VOLUME_ID = aws_ebs_volume.worker-ebs.id })
+  filename = "${path.cwd}/${var.name}/worker-persistent-volume.yaml"
 
 }
 
@@ -89,7 +89,7 @@ resource "local_file" "postgresql-persistent-volume-yaml" {
 resource "null_resource" "install-concourse" {
 
   depends_on = [
-    aws_ebs_volume.workers-ebs,
+    aws_ebs_volume.worker-ebs,
     aws_ebs_volume.postgresql-ebs,
     data.aws_s3_bucket_object.kube-config-yaml
   ]

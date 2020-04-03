@@ -19,7 +19,7 @@ variable "storage_availability_zone" {
   default = "eu-west-2a" # London
 }
 
-variable "workers_storage_size" {
+variable "worker_storage_size" {
   default = 40 # In GiBs
 }
 
