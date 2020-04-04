@@ -15,13 +15,20 @@ data "aws_route53_zone" "morsley-io" {
 
 }
 
+data "aws_s3_bucket_object" "node-public-ip" {
+
+  bucket = local.bucket_name
+  key    = "/${var.cluster_name}/node_public_ip.txt"
+
+}
+
 resource "aws_route53_record" "concourse-a-record" {
 
   zone_id = data.aws_route53_zone.morsley-io.zone_id
   name    = var.name
   type    = "A"
   ttl     = 300
-  records = [data.aws_s3_bucket_object.node-public-dns.body]
+  records = [data.aws_s3_bucket_object.node-public-ip.body]
 
 }
 
