@@ -1,0 +1,30 @@
+﻿#    _____             _         _____ ____  
+#   |  __ \           | |       | ____|___ \ 
+#   | |__) |___  _   _| |_ ___  | |__   __) |
+#   |  _  // _ \| | | | __/ _ \ |___ \ |__ < 
+#   | | \ \ (_) | |_| | ||  __/  ___) |___) |
+#   |_|  \_\___/ \__,_|\__\___| |____/|____/ 
+#
+
+# concourse.morsley.io
+
+data "aws_route53_zone" "morsley-io" {
+
+  name         = var.domain
+  private_zone = false
+
+}
+
+resource "aws_route53_record" "concourse-a-record" {
+
+  zone_id = data.aws_route53_zone.morsley-io.zone_id
+  name    = var.name
+  type    = "A"
+  ttl     = 300
+  records = [local_file.node-public-dns.content]
+
+}
+
+output "route_53_name_servers" {
+  value = data.aws_route53_zone.morsley-io.name_servers
+}
