@@ -3,14 +3,17 @@
 # Destroy Pivotal Concourse via Helm
 
 echo '###############################################################################'
-echo '# DESTROY CONCOURSE...'
+echo '# DESTROYING CONCOURSE...'
 echo '###############################################################################'
 
-#set -x    
-                                        
-export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
+set -x    
 
-chmod 400 $(pwd)/$FOLDER/*.pem
+# Remove the 'concourse' folder...
+rm -rf $(pwd)/$FOLDER
+                                        
+#export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
+
+#chmod 400 $(pwd)/$FOLDER/*.pem
 
 # Concourse...
 
@@ -35,10 +38,10 @@ chmod 400 $(pwd)/$FOLDER/*.pem
 
 # https://rancher.com/docs/rancher/v2.x/en/installation/options/troubleshooting/
 
-#set +x
+set +x
 
 echo '###############################################################################'
-echo '# DESTROY CONCOURSE'
+echo '# CONCOURSE DESTROYED'
 echo '###############################################################################'
 
 exit 0
