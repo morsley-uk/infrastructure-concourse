@@ -21,7 +21,7 @@ resource "aws_route53_record" "concourse-a-record" {
   name    = var.name
   type    = "A"
   ttl     = 300
-  records = [local_file.node-public-dns.content]
+  records = [data.aws_s3_bucket_object.node-public-dns.body]
 
 }
 
