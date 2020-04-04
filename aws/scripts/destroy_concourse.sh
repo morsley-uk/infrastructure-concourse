@@ -9,13 +9,17 @@ echo '##########################################################################
 set -x    
 
 # Remove the 'concourse' folder...
-rm -rf $(pwd)/$FOLDER
+echo rm -rf $(pwd)/$FOLDER/
                                         
 #export KUBECONFIG=$(pwd)/$FOLDER/kube_config.yaml
 
 #chmod 400 $(pwd)/$FOLDER/*.pem
 
 # Concourse...
+
+# Detach persistent volumes...
+
+# Detach persistent volumes...
 
 #kubectl apply --filename $(pwd)/k8s/worker-storage-class.yaml
 #kubectl apply --filename $(pwd)/$FOLDER/worker-persistent-volume.yaml

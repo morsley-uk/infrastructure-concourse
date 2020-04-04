@@ -141,6 +141,9 @@ resource "null_resource" "destroy-concourse" {
   provisioner "local-exec" {
     when    = destroy
     command = "chmod +x scripts/destroy_concourse.sh && bash scripts/destroy_concourse.sh"
+    environment = {
+      FOLDER    = "${var.name}"
+    }
   }
 
 }

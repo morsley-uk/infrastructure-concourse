@@ -22,7 +22,7 @@ data "aws_s3_bucket_object" "node-public-ip" {
 
 }
 
-resource "aws_route53_record" "concourse-a-record" {
+resource "aws_route53_record" "a-record" {
 
   zone_id = data.aws_route53_zone.morsley-io.zone_id
   name    = var.name
